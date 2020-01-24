@@ -23,6 +23,18 @@ function handleCardCreate(event) {
   }
 }
 
+function handleListEdit(event) {
+  var $listContainer = event.target.parentNode.parentNode;
+  var listId = Number($listContainer.getAttribute('data-id'));
+
+  var listTitle = prompt('New list title') || '';
+
+  if (listTitle.trim()) {
+    board.editList(listId, listTitle);
+    renderBoard();
+  }
+}
+
 function renderBoard() {
   $boardContainer.innerHTML = '';
 
@@ -35,6 +47,7 @@ function renderBoard() {
 
     var $headerButton = document.createElement('button');
     $headerButton.textContent = list.title;
+    $headerButton.addEventListener('click', handleListEdit);
 
     var $cardUl = document.createElement('ul');
 
